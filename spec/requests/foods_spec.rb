@@ -124,7 +124,36 @@ RSpec.describe "Foods", type: :request do
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(200)
     end
+  end
 
+  describe 'post /create' do
+    it 'should return bad request exception when create makanan without name, price, description, and categories' do
+      # Given
+      expected = {
+        status: :bad_request,
+        message: 'Gagal menambahkan buku, mohon isi nama, harga, deskripsi, dan kategori'
+      }.to_json
+      # When
+      post "/foods"
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(400)
+    end
+
+    it 'should return exception when create makanan with duplicate name' do
+      # Given
+      food = FactoryBot.create(:food, name: "Nasi Goreng")
+      expected = {
+        status: :bad_request,
+        message: "Gagal menambahkan data makanan, makanan tersebut sudah terdaftar"
+      }
+      # When
+      post "/foods", params: { name: food.name, price: 0, description: food.description, categories: food.categories}.to_json
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(400)
+      
+    end
   end
   
 end
