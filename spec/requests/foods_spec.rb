@@ -96,5 +96,35 @@ RSpec.describe "Foods", type: :request do
       expect(response).to have_http_status(400)
     end
   end
+
+  describe 'delete /destroy' do
+    it 'should return 404 when food id not found' do
+       # Given
+      expected = {
+        status: :not_found,
+        message: 'Gagal menghapus data makanan, Id makanan tidak ditemukan'
+      }.to_json
+      # When
+      delete "/foods/x"
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(404)
+    end
+
+    it 'should return success message when delete using valid id' do
+      # Given
+      food = FactoryBot.create(:food)
+      expected = {
+        status: :success,
+        message: 'Berhasil menghapus data makanan'
+      }.to_json
+      # When
+      delete "foods/#{food.id}"
+      # Then
+      expect(response).to eq(expected.to_s)
+      expect(response).to have_http_status(200)
+    end
+
+  end
   
 end
