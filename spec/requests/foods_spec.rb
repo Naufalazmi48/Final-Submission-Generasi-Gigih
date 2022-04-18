@@ -119,9 +119,9 @@ RSpec.describe "Foods", type: :request do
         message: 'Berhasil menghapus data makanan'
       }.to_json
       # When
-      delete "foods/#{food.id}"
+      delete "/foods/#{food.id}"
       # Then
-      expect(response).to eq(expected.to_s)
+      expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(200)
     end
 

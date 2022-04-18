@@ -13,7 +13,7 @@ RSpec.describe Food, type: :model do
     end
 
     it 'is invalid with a duplicate name' do
-      food1 = FactoryBot.create(:food, name: 'Nasi Uduk')
+      food1 = FactoryBot.create(:food, name: 'Nasi Uduk', categories: [Category.new(name: 'category1')])
       food2 = FactoryBot.build(:food, name: 'Nasi Uduk')
 
       food2.valid?
@@ -55,9 +55,8 @@ RSpec.describe Food, type: :model do
   describe 'search' do
     it 'search by category food' do
       food = FactoryBot.create(:food, name: 'makanan1', categories: [Category.new(name: 'makanan')])
-      food2 = FactoryBot.create(:food, name: 'makanan2',
-      categories: [Category.new(name: 'minuman')])
-      food3 = FactoryBot.create(:food, name: 'makanan 3')
+      food2 = FactoryBot.create(:food, name: 'makanan2', categories: [Category.new(name: 'minuman')])
+      food3 = FactoryBot.create(:food, name: 'makanan 3', categories: [Category.new(name: 'jajanan')])
 
       expect(Food.search_by_category('makanan')).to eq([food])
     end
