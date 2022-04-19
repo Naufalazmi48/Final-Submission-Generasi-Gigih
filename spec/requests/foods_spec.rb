@@ -1,19 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "Foods", type: :request do
-
+RSpec.describe 'Foods', type: :request do
   before(:each) do
     Food.delete_all
     Category.delete_all
   end
-  
-  describe "GET /index" do
+
+  describe 'GET /index' do
     it 'get foods correctly' do
       # Given
-      food = FactoryBot.create(:food, name: "Makanan 1")
+      food = FactoryBot.create(:food, name: 'Makanan 1')
       expected = {
         status: :success,
-        data: { foods: [food]}
+        data: { foods: [food.as_response] }
       }.to_json
       # When
       get '/foods'
@@ -23,13 +22,13 @@ RSpec.describe "Foods", type: :request do
     end
   end
 
-  describe "GET /show" do
+  describe 'GET /show' do
     it 'get food by id correctly' do
       # Given
-      food = FactoryBot.create(:food, name: "Makanan 1")
+      food = FactoryBot.create(:food, name: 'Makanan 1')
       expected = {
         status: :success,
-        data: { food: food}
+        data: { food: food.as_response }
       }.to_json
       # When
       get "/foods/#{food.id}"
@@ -45,14 +44,14 @@ RSpec.describe "Foods", type: :request do
         message: 'Id makanan tidak ditemukan'
       }.to_json
       # When
-      get "/foods/x"
+      get '/foods/x'
       # Then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(404)
     end
   end
 
-  describe "put /update" do
+  describe 'put /update' do
     it 'update food by id correctly' do
       # Given
       food = FactoryBot.create(:food)
@@ -61,11 +60,11 @@ RSpec.describe "Foods", type: :request do
         message: 'Data makanan berhasil diperbarui'
       }.to_json
       # When
-      put "/foods/#{food.id}", params: { name: "Makanan1", price: 20000}
+      put "/foods/#{food.id}", params: { name: 'Makanan1', price: 20_000 }
       # then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(200)
-      expect(Food.first.price).to eq(20000)
+      expect(Food.first.price).to eq(20_000)
       expect(Food.first.name).to eq('Makanan1')
     end
 
@@ -76,13 +75,13 @@ RSpec.describe "Foods", type: :request do
         message: 'Gagal memperbarui data makanan, Id makanan tidak ditemukan'
       }.to_json
       # When
-      put "/foods/x", params: {name: 'Makanan1'}
+      put '/foods/x', params: { name: 'Makanan1' }
       # Then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(404)
     end
 
-    it 'update food without payload name and price' do 
+    it 'update food without payload name and price' do
       # Given
       food = FactoryBot.create(:food)
       expected = {
@@ -99,13 +98,13 @@ RSpec.describe "Foods", type: :request do
 
   describe 'delete /destroy' do
     it 'should return 404 when food id not found' do
-       # Given
+      # Given
       expected = {
         status: :not_found,
         message: 'Gagal menghapus data makanan, Id makanan tidak ditemukan'
       }.to_json
       # When
-      delete "/foods/x"
+      delete '/foods/x'
       # Then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(404)
@@ -131,29 +130,29 @@ RSpec.describe "Foods", type: :request do
       # Given
       expected = {
         status: :bad_request,
-        message: 'Gagal menambahkan buku, mohon isi nama, harga, deskripsi, dan kategori'
+        message: 'Gagal menambahkan data makanan, mohon isi nama, harga, deskripsi, dan kategori'
       }.to_json
       # When
-      post "/foods"
+      post '/foods'
       # Then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(400)
     end
 
-    it 'should return exception when create makanan with duplicate name' do
+    it 'should success create food when use valid data' do
       # Given
-      food = FactoryBot.create(:food, name: "Nasi Goreng")
+      category = Category.create(name: 'Makanan')
+      food = FactoryBot.build(:food, categories: [category])
+
       expected = {
-        status: :bad_request,
-        message: "Gagal menambahkan data makanan, makanan tersebut sudah terdaftar"
-      }
+        status: :success,
+        message: "Makanan telah berhasil ditambahkan"
+      }.to_json
       # When
-      post "/foods", params: { name: food.name, price: 0, description: food.description, categories: food.categories}.to_json
+      post '/foods', params: { name: food.name, price: food.price, description: food.description, categories: [{ id: category.id }] }
       # Then
       expect(response.body).to eq(expected.to_s)
-      expect(response).to have_http_status(400)
-      
+      expect(response).to have_http_status(201)
     end
   end
-  
 end

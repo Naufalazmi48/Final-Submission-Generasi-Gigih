@@ -1,41 +1,46 @@
-# Problem Statement
+# Backend - Final Project Assignment
 
-Mr. Gagah and Ms. Guguh are the parents of Gigih. They have run a catering business for years and write all their orders in their small green book. Gigih is eager to help his parents in running their catering business therefore, he plans to create an automation plan to run this project.
+## Problem Statement
 
-The business process of Gigih parents is like this: Every morning, Mr. Gagah and Ms. Guguh will broadcast some menu items and their price into the catering whatsapp group, usually they can clarify some of the menu items like the price. Then, the customer will message them and order.  Moreover, the customer also can cancel their order if they change their mind before 5pm. In the evening, Mr. Gagah and Ms. Gigih will check the order list for tomorrow morning and prepare the menu accordingly. Apart from that, Mr. Gagah and Ms. Gigih also does revenue calculation based on their total orders.
+Pak Gagah dan Bu Guguh adalah orang tua dari Gigih. Mereka menjalankan bisnis katering selama bertahun-tahun dan mencatat data-data bisnis mereka di sebuah buku kas. Sebagai seorang anak yang baik, Gigih ingin membantu orang tuanya dalam menjalankan bisnis mereka. Oleh karena itu, Gigih berencana membuatkan aplikasi untuk membantu pencatatan data bisnis katering orang tuanya.
 
-Gigih is actually a project manager in a big news company called The Eco Mews. He is really good at creating User Stories, however didn’t know backend programming as much as you, a very Gegeh Backend Programmer. Therefore, Gigih hired you to implement the application API for the aforementioned problem.  
+Business process dari orang tua Gigih adalah sebagai berikut: setiap pagi, Pak Gagah dan Bu Guguh akan mengumumkan menu makanan dan harganya ke grup WhatsApp katering. Customer biasanya akan memesan melalui grup WhatsApp dan melakukan pembayaran melalui transfer bank. Jika customer belum membayar pesanan sampai jam 5 sore, customer dianggap membatalkan pesanan mereka. Setelah jam 5 sore, Pak Gagah dan Bu Guguh akan melihat daftar pesanan yang telah dibayar dan akan menyiapkan menu makanan untuk dikirim sesuai dengan pesanan. Selain itu, setiap harinya, Pak Gagah dan Bu Gigih juga akan melihat berapa total pendapatan mereka pada hari itu.
+
+Gigih bekerja sebagai seorang project manager di sebuah perusahaan bernama The Eco Mews. Meski bisa membuat user story, Gigih tidak bisa membuat aplikasi yang diinginkannya sendiri. Oleh karena itu, Gigih membuat spesifikasi berikut untukmu agar kamu bisa membantunya membuat aplikasi berbasis API berikut.
+
 
 # User Stories
-|#| Story | Additional Notes |
+|#| Story | Keterangan |
 |---|---|---|
-|1  |As an owner,<br />I want to create a new menu item <br />So that I can show them to my customers later|A menu item always has a name, a price, and a category. <br /> <br /> Name of the menu can’t be duplicated. <br /> <br /> Price of the menu can’t be less than 0.01. <br /> <br /> If filled, the description should not exceed 150 characters. <br /> <br /> A menu item can have one category, bonus points if a menu item can have multiple categories.|
+|1  |As an owner, <br/>I want to create a new menu item,<br/>So that I can show them to my customers later.|Sebuah menu makanan selalu memiliki nama dan harga. Nama menu makanan tidak bisa duplikat. Harga menu makanan tidak boleh lebih kecil dari 0.01. Menu makanan bisa memiliki deskripsi yang panjangnya tak lebih dari 150 karakter. <br/><br/> Menu makanan harus memiliki kategori. **Bonus poin** jika kamu mengimplementasikan menu makanan dengan lebih dari satu kategori.|
 |2  |As an owner,<br />I want to update an existing menu item<br /> So that I can modify info related to the menu item |
 |3   |  As an owner,<br /> I want to show the list of all menu items<br /> So that my customers can see the list of all menu items that I sell | |
 |4   |As an owner,<br /> I want to delete an existing menu item<br /> So that I can remove a menu item that is no longer provided by my catering service|   |
-|5  |As an owner, <br /> I want to add customer’s order <br /> So that I can prepare their order| In every order, the owner saves the data of the name and email of the customer who made the order. <br /><br /> Customers can order more than one menu item. For instance, a customer can order both “Nasi Uduk” and “Nasi Kuning”. <br /><br /> For each menu item, customers can order more than one portion. For instance, a customer can order two portions of “Nasi Uduk”. <br /><br /> Please note that as the owner can modify the data of menu items, the change in price of any menu item should not affect its price in any orders that have been created. For instance, if the owner changes the price of “Nasi Uduk” from 15,000 to 20,000, the price of “Nasi Uduk” in all existing orders should not change.|
-|6   |As an owner,<br /> I want to update a customer’s order<br /> So that I can modify info related to the order<br />| When an order is first created, the status of that order is ‘new’. If a customer has paid their order, the order status is changed to ‘paid’. The payment process happens outside of this app, the app just has to provide a way for the owner to update the status of an order. <br /> <br /> If a customer does not pay their order five hours after the order is created, the owner will change the status of the order to ‘canceled’. Bonus points if you can provide a way to automatically change the status of any ‘new’ orders that are not changed to ‘paid’ in five hours into ‘canceled’. |
-|7   | As an owner,<br /> I want to see a daily report of orders,<br /> So that I can see the revenue that I have generated for that day| Daily report should show the list of orders, the customer of each order, and the total price of each order. <br /><br /> Bonus points if you can provide a way to show reports:<br />1. Based on customer’s email (ex: show report of orders from wkwk@generasigigih.com)<br />2. Based on total price (ex: show report of orders with total price > 50,000)<br />3. Based on a range of dates (ex: show report of orders from April 11-17 2022.)<br /> |
+|5  |As an owner, <br/>I want to add customer’s order<br/> So that I can prepare their order| Pada tiap pesanan, pemilik katering menyimpan data email dari customer yang melakukan pemesanan. Data email harus dalam format email yg valid (contoh: savira@generasigigih.com adalah format email yang valid, halo@gigih adalah format email yang tidak valid).<br/><br/>Satu customer bisa memesan lebih dari satu menu makanan dalam satu pesanan. Misalnya, Customer A bisa memesan “Nasi Uduk” dan “Nasi Kuning”.<br/><br/>Untuk tiap menu makanan, customer bisa memesan lebih satu porsi. Misalnya, Customer A bisa memesan dua porsi “Nasi Uduk”.<br/><br/>Perlu diingat, karena owner bisa mengubah data menu makanan, harga menu makanan pada pesanan yang telah dibuat sebelumnya tidak boleh berubah ketika data menu makanan berubah. Misalnya, owner mengubah harga “Nasi Uduk” dari 15,000 menjadi 20,000. Data harga “Nasi Uduk” pada order-order yang sudah dibuat sebelum perubahan harga tidak boleh berubah.<br/><br/>Pemilik katering juga perlu untuk bisa melihat total harga dari tiap pesanan.|
+|6   |As an owner,<br /> I want to update a customer’s order<br /> So that I can modify info related to the order<br />| Ketika pesanan pertama kali dibuat, status pesanan tersebut adalah “NEW”. Jika customer telah mengkonfirmasi pembayaran di grup WhatsApp, data pesanan akan berubah statusnya menjadi “PAID”. Setelah jam 5 sore, owner akan mengubah status semua pesanan yang belum dibayar menjadi “CANCELED”.<br/><br/>Bonus poin jika kamu dapat membuat otomasi untuk mengubah status semua pesanan yang belum dibayar pada jam 5 sore menjadi “CANCELED”.|
+|7   | As an owner,<br /> I want to see a daily report of orders,<br /> So that I can see the revenue that I have generated for that day| Laporan harian harus menampilkan daftar semua pesanan pada hari tersebut beserta alamat email customer dan total harga dari tiap pesanan.<br/><br/>Bonus poin jika kamu bisa menyediakan cara untuk menampilkan laporan: <br/>- Berdasarkan email customer (misal: tampilkan semua pesanan dari zanya@generasigigih.com)<br/>- Berdasarkan total harga (misal: tampilkan semua pesanan dengan total harga lebih dari 50,000)<br/>- Berdasarkan rentang waktu (misal: tampilkan semua pesanan dari tanggal 11-17 April 2022)
+|
 
 # The Rule of The Game
 
-1. You have 10 days to implement this project, the deadline is at 23 April 11.00 WIB,
-2. Use Rails to solve this problem,
-3. This problem should be submitted on Replit,
-4. When you have any assumption, please write it down inside the README.md, ideally your README.md should help the instructor to grade your API,
-5. You are free to use any libraries or gems,
-6. Feel free to clarify the requirements to the mentors, and 
-7. The problem will be graded only by running RUN from your replit, and going through your UI or routes lists. There should be no extra step required to run the project.
+1. Kamu punya 10 hari untuk membuat implementasi project ini, batas akhir pengumpulan adalah pada tanggal 23 April jam 11.00 WIB ke link berikut: https://bit.ly/gg-be-finalproject,
+2. Gunakan Rails untuk menyelesaikan problem statement ini,
+3. Kamu bisa menggunakan skeleton Rails project di Replit berikut: https://replit.com/@gojek22/Gigih-Family-Catering
+4. Jika kamu memiliki asumsi, tulis asumsi tersebut pada file README.md,
+5. Idealnya, README.md yang kamu tulis bisa membantu instruktur untuk menjalankan aplikasi yang kamu buat dengan mudah
+6. Kamu boleh menggunakan library atau gem apa saja, 
+7. Kamu bisa bertanya tentang problem statement pada para instruktur,
+8. Project ini akan dinilai dengan menjalankan RUN pada Replit dan menguji semua API yang kamu buat. Sebaiknya tidak perlu ada langkah-langkah ekstra untuk bisa menjalankan project yang kamu submit.
 
 # Grading Criteria
-1. You created an UI/API that solved all the 5 sample use case problem,
-2. Program should not have an error or crash at any point of time,
-3. The program should have the Object Oriented Programming taught from module 1,
-4. The program should have the Database, created and manipulated using the DDL and DML taught from module 2,
-5. The program should have the MVP architecture in Rails taught from module 3,
-6. The program should have Test Driven Development taught from module 4,
-7. You have a good and understandable README.md in your solution, this README.md acts as documentation for your solution. As a reference, check this site https://www.makeareadme.com/,
-8. Follow the rules of folder structure in rails. Check these website as a reference https://www.tutorialspoint.com/ruby-on-rails/rails-directory-structure.htm,
-9. Follow ruby code writing styling guide, follow this website as a style guide https://ruby.style/, 
-10. You can integrate the Replit with your Github and having a readable commit history. As a reference, check out this site: https://replit.com/talk/learn/Replit-Git-Tutorial/23331,
-11. Ideally your code should be easy to read and easy to navigate, try to use the most correct variable and functions naming as much as possible
+1. Kamu berhasil membuat API yang bisa menyelesaikan 7 user story pada problem statement. Bonus point jika kamu juga membuat web UI untuk problem statement ini, tapi perlu diingat bahwa membuat web UI tidak wajib,
+2. Program tidak memiliki error atau crash,
+3. Program mendemonstrasikan desain Object Oriented yang baik sesuai dengan yang diajarkan pada module 1,
+4. Program mendemonstrasikan desain Database yang baik sesuai dengan yang diajarkan pada module 2,
+5. Program mendemonstrasikan implementasi MVC architecture pada Rails yang baik sesuai dengan yang diajarkan pada module 3,
+6. Program memiliki unit test pada Model dan Controller sesuai dengan yang diajarkan pada module 4,
+7. Kamu membuat README.md yang mudah dipahami. Sebagai referensi untuk README.md, lihat halaman berikut: https://www.makeareadme.com/,
+8. Kamu mengikuti konvensi Rails untuk struktur direktori. Sebagai referensi, lihat halaman berikut: https://www.tutorialspoint.com/ruby-on-rails/rails-directory-structure.htm,
+9. Kamu mengikuti Ruby code writing styling guide. Sebagai referensi, lihat halaman berikut: https://ruby.style/, 
+10. Kamu mengintegrasikan Replit dengan akun Github dan memiliki riwayat git commit yang yang granular. Bonus poin jika riwayat git commit mengikuti pola TDD. Sebagai referensi, lihat halaman berikut: https://replit.com/talk/learn/Replit-Git-Tutorial/23331,
+11. Idealnya, kode yang kamu tulis harus mudah dibaca dan dipahami. Coba gunakan nama variable, fungsi, dan kelas sebaik yang kamu bisa.

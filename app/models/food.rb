@@ -16,5 +16,9 @@ class Food < ApplicationRecord
         where('name LIKE ?', "#{query[:name]}%").to_a
       end
     end
+
+  def as_response
+    self.as_json(include: { categories: {only: :name}})
+  end
     
   end
