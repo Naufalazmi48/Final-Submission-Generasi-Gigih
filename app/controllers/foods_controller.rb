@@ -66,7 +66,7 @@ class FoodsController < ApplicationController
       end
     end
 
-    render json: response_with_message(:success, 'Makanan telah berhasil ditambahkan'), status: :created
+    render json: response_with_message(:success, 'Makanan telah berhasil ditambahkan').merge(data: { foodId: @food.id}), status: :created
   end
 
   private
@@ -81,20 +81,6 @@ class FoodsController < ApplicationController
 
   def food_params
     params.permit(:name, :price, :description, :categories)
-  end
-
-  def response_with_message(status, message)
-    response = {
-      status: status,
-      message: message
-    }
-  end
-
-  def response_with_data(status, data)
-    response = {
-      status: status,
-      data: data
-    }
   end
 
   def parse_categories(payload_categories)
