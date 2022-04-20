@@ -72,7 +72,7 @@ RSpec.describe 'Categories', type: :request do
       expected = {
         status: :created,
         message: "Berhasil menambahkan kategori",
-        data: { categoryId: '3' }
+        data: { categoryId: 5 }
       }.to_json
       # When
       post '/categories', params: { name: category.name }
@@ -80,5 +80,20 @@ RSpec.describe 'Categories', type: :request do
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(201)
     end
+
+    it 'Should return exception when not input parameter name' do
+       # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :bad_request,
+        message: "Kolom nama kategori wajib di isi"
+      }.to_json
+      # When
+      post '/categories'
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(400)
+    end
   end
+  
 end

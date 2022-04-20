@@ -66,18 +66,10 @@ class FoodsController < ApplicationController
       end
     end
 
-    render json: response_with_message(:success, 'Makanan telah berhasil ditambahkan').merge(data: { foodId: @food.id}), status: :created
+    render json: response_with_message(:success, 'Makanan telah berhasil ditambahkan').merge(data: { foodId: @food.id }), status: :created
   end
 
   private
-
-  def validate_params(list_params)
-    is_valid = true
-    list_params.each do |key|
-      is_valid = false unless params.has_key?(key)
-    end
-    is_valid
-  end
 
   def food_params
     params.permit(:name, :price, :description, :categories)
