@@ -50,4 +50,35 @@ RSpec.describe 'Categories', type: :request do
       expect(response).to have_http_status(200)
     end
   end
+
+  describe 'POST /create' do
+    it 'Should return exception when input duplicate name' do
+      # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :bad_request,
+        message: "Kategori ini sudah ada"
+      }.to_json
+      # When
+      post '/categories', params: { name: category.name }
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(400)
+    end
+
+    it 'Should success create new category' do
+      # Given
+      category = FactoryBot.build(:category)
+      expected = {
+        status: :created,
+        message: "Berhasil menambahkan kategori",
+        data: { categoryId: '3' }
+      }.to_json
+      # When
+      post '/categories', params: { name: category.name }
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(201)
+    end
+  end
 end
