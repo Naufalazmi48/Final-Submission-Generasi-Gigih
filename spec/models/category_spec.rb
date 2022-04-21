@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
+  after(:all) do
+    Category.delete_all
+  end
+  
   it 'has a valid factory' do
       expect(FactoryBot.build(:category)).to be_valid
     end

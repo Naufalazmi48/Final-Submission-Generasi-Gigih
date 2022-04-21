@@ -72,7 +72,7 @@ RSpec.describe 'Categories', type: :request do
       expected = {
         status: :created,
         message: "Berhasil menambahkan kategori",
-        data: { categoryId: 5 }
+        data: { categoryId: 1 }
       }.to_json
       # When
       post '/categories', params: { name: category.name }

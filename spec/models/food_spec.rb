@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Food, type: :model do
+
+  after(:all) do
+    Food.delete_all
+    Category.delete_all
+  end
+  
   describe 'creational' do
     it 'has a valid factory' do
       expect(FactoryBot.build(:food, name: 'makanan1', categories: [Category.new(name: 'category1')])).to be_valid

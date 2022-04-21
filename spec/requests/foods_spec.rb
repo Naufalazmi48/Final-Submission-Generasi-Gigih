@@ -147,7 +147,7 @@ RSpec.describe 'Foods', type: :request do
       expected = {
         status: :success,
         message: "Makanan telah berhasil ditambahkan",
-        data: { foodId: 3}
+        data: { foodId: 1}
       }.to_json
       # When
       post '/foods', params: { name: food.name, price: food.price, description: food.description, categories: [{ id: category.id }] }
