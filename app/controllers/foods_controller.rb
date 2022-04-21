@@ -36,6 +36,7 @@ class FoodsController < ApplicationController
 
     @food.destroy
     render json: response_with_message(:success, 'Berhasil menghapus data makanan'), status: :ok
+    
   rescue ActiveRecord::RecordNotFound
     render json: response_with_message(:not_found, 'Gagal menghapus data makanan, Id makanan tidak ditemukan'), status: :not_found
   end
