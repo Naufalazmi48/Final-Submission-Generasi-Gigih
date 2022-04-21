@@ -14,6 +14,7 @@ class FoodsController < ApplicationController
 
   def update
     @food = Food.find(params[:id])
+
     unless validate_params(%i[name price])
       render json: response_with_message(:bad_request, 'Gagal memperbarui buku, mohon isi nama atau harga buku'), status: :bad_request and return
     end
@@ -72,9 +73,6 @@ class FoodsController < ApplicationController
 
   private
 
-  def food_params
-    params.permit(:name, :price, :description, :categories)
-  end
 
   def parse_categories(payload_categories)
     categories = []
