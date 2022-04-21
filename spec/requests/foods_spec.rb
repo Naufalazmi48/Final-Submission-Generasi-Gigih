@@ -152,7 +152,9 @@ RSpec.describe 'Foods', type: :request do
       # When
       post '/foods', params: { name: food.name, price: food.price, description: food.description, categories: [{ id: category.id }] }
       # Then
-      expect(response.body).to eq(expected.to_s)
+      hash_response = JSON.parse(response.body)
+      
+      expect(hash_response['data'].has_key?("foodId")).to be true
       expect(response).to have_http_status(201)
     end
   end

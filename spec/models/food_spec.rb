@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Food, type: :model do
 
-  after(:all) do
+  before(:each) do
     Food.delete_all
     Category.delete_all
   end

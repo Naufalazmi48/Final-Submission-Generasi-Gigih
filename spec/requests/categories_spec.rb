@@ -77,7 +77,9 @@ RSpec.describe 'Categories', type: :request do
       # When
       post '/categories', params: { name: category.name }
       # Then
-      expect(response.body).to eq(expected.to_s)
+      hash_response = JSON.parse(response.body)
+      
+      expect(hash_response['data'].has_key?("categoryId")).to be true
       expect(response).to have_http_status(201)
     end
 

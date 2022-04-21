@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  after(:all) do
+  before(:each) do
     Category.delete_all
   end
   

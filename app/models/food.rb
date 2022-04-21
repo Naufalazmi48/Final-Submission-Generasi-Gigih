@@ -6,6 +6,7 @@ class Food < ApplicationRecord
     validates :categories, presence: true
   
     has_many :categories
+    has_many :orderdetails
   
     def self.search_by_category(category)
       self.joins(:categories).where('categories.name LIKE ?', "%#{category}%").distinct.to_a
