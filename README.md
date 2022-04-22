@@ -1,4 +1,4 @@
-![Gigih Banner](https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/tree/main/app/assets/images/gigih.png)
+![Gigih Banner]([https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/tree/main/app/assets/images/gigih.png](https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/blob/main/app/assets/images/gigih.png))
 
 # **Restoran Si Gigih**
 
