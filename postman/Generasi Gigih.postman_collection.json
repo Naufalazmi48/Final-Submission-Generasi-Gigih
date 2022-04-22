@@ -1,0 +1,2337 @@
+{
+	"info": {
+		"_postman_id": "588269f5-7e12-4c46-81a6-678988b4e79b",
+		"name": "Generasi Gigih",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Add Category with Complete Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 201', () => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('created');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have categoryId in data', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('categoryId')\r",
+									"    pm.expect(data.categoryId).to.be.an(\"number\")\r",
+									"\r",
+									"    pm.environment.set('categoryId', responseJson.data.categoryId);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{categoryNameOld}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Category with Duplicate Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responsJson.message).to.be.an('string');\r",
+									"    pm.expect(responsJson.message).to.equals('Kategori ini sudah ada');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{categoryNameOld}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Category without Parameter name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responsJson.message).to.be.an('string');\r",
+									"    pm.expect(responsJson.message).to.equals('Kolom nama kategori wajib di isi');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gell All Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a array categories and contains one items', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('categories');\r",
+									"    pm.expect(data.categories).to.be.an('array');\r",
+									"    pm.expect(data.categories).to.lengthOf(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('the categories should have contains only id, name', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { categories } } = responseJson;\r",
+									"\r",
+									"    categories.forEach((category) => {\r",
+									"        pm.expect(Object.keys(category)).to.lengthOf(2);\r",
+									"        pm.expect(category).to.haveOwnProperty('id');\r",
+									"        pm.expect(category).to.haveOwnProperty('name');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/categories",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Category By Valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have object category', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('category');\r",
+									"    pm.expect(data.category).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('the categories should have contains only id, name', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { category } } = responseJson;\r",
+									"\r",
+									"    pm.expect(category).to.haveOwnProperty('id');\r",
+									"    pm.expect(category).to.haveOwnProperty('name');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/categories/{{categoryId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Category By Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('not_found');\r",
+									"    pm.expect(responsJson.message).to.equals('Kategori tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/categories/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category with Complete Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Berhasil memperbarui kategori');\r",
+									"    pm.expect(responsJson.data).to.be.an('object')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{categoryNameNew}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/categories/{{categoryId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category With Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('not_found');\r",
+									"    pm.expect(responsJson.message).to.equals('Kategori tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{categoryNameNew}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/categories/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category With Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('not_found');\r",
+									"    pm.expect(responsJson.message).to.equals('Kategori tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/categories/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category With Valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Kategori berhasil dihapus');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/categories/{{categoryId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"categories",
+								"{{categoryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food",
+			"item": [
+				{
+					"name": "[No Test] Prerequisite",
+					"item": [
+						{
+							"name": "[No Test] Add Category",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();\r",
+											"pm.environment.set('categoryId', responseJson.data.categoryId);\r",
+											"\r",
+											"const addCategoryRequest = {\r",
+											"    url: `${pm.environment.get('localhost')}/categories`,\r",
+											"    method: 'POST',\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\"name\": `${pm.environment.get('categoryNameNew')}`})\r",
+											"    },\r",
+											"    header: {\r",
+											"      'Content-Type': 'application/json'\r",
+											"  }\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(addCategoryRequest, (error, response) => {\r",
+											"    if(error) {\r",
+											"        console.log(`Failed to add category`)\r",
+											"        return;\r",
+											"    } else {\r",
+											"        const responseJson = response.json();\r",
+											"        const { data: { categoryId }} = responseJson\r",
+											"        pm.environment.set('categoryIdNew', categoryId);\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{categoryNameOld}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/categories",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Food with Complete Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 201', () => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('success');\r",
+									"    pm.expect(responseJson.message).to.equals('Makanan telah berhasil ditambahkan');\r",
+									"    pm.expect(responseJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data should contain id', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('foodId');\r",
+									"    pm.expect(data.foodId).to.not.equals('');\r",
+									"\r",
+									"    pm.environment.set('foodId', data.foodId);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{foodNameOld}}\",\r\n    \"price\": \"{{foodPriceOld}}\",\r\n    \"description\": \"{{foodDescriptionOld}}\",\r\n    \"categories\": [\r\n        { \r\n            \"id\": \"{{categoryId}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/foods",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Food with Duplicate Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responseJson).to.not.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responseJson.message).to.equals('Data makanan ini sudah tersedia sebelumnya');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{foodNameOld}}\",\r\n    \"price\": \"{{foodPriceOld}}\",\r\n    \"description\": \"{{foodDescriptionOld}}\",\r\n    \"categories\": [\r\n        { \r\n            \"id\": \"{{categoryId}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/foods",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Food With Empty Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responseJson).to.not.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responseJson.message).to.equals('Gagal menambahkan data makanan, kategori tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{foodNameNew}}\",\r\n    \"price\": \"{{foodPriceNew}}\",\r\n    \"description\": \"{{foodDescriptionNew}}\",\r\n    \"categories\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/foods",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Food Without parameter Categories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responseJson).to.not.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responseJson.message).to.equals('Gagal menambahkan data makanan, mohon isi nama, harga, deskripsi, dan kategori');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{foodNameNew}}\",\r\n    \"price\": \"{{foodPriceNew}}\",\r\n    \"description\": \"{{foodDescriptionNew}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/foods",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Food",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a array foods and contains one items', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('foods');\r",
+									"    pm.expect(data.foods).to.be.an('array');\r",
+									"    pm.expect(data.foods).to.lengthOf(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('the foods should have contains only id, name, price, categories property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { foods } } = responseJson;\r",
+									"\r",
+									"    foods.forEach((food) => {\r",
+									"        pm.expect(Object.keys(food)).to.lengthOf(5);\r",
+									"        pm.expect(food).to.haveOwnProperty('id');\r",
+									"        pm.expect(food).to.haveOwnProperty('name');\r",
+									"        pm.expect(food).to.haveOwnProperty('price');\r",
+									"        pm.expect(food).to.haveOwnProperty('categories');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/foods",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Food",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a object food', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('food');\r",
+									"    pm.expect(data.food).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('the food should have contains only id, name, price, categories property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { food } } = responseJson;\r",
+									"\r",
+									"        pm.expect(Object.keys(food)).to.lengthOf(5);\r",
+									"        pm.expect(food).to.haveOwnProperty('id');\r",
+									"        pm.expect(food).to.haveOwnProperty('name');\r",
+									"        pm.expect(food).to.haveOwnProperty('price');\r",
+									"        pm.expect(food).to.haveOwnProperty('categories');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/foods/{{foodId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods",
+								"{{foodId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Food with Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should an object', () =>  {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should contain correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('not_found');\r",
+									"    pm.expect(responseJson.message).to.equals('Id makanan tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/foods/x",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods",
+								"x"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Food with Complete Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Data makanan berhasil diperbarui');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{foodNameNew}}\",\r\n    \"price\": \"{{foodPriceNew}}\",\r\n    \"description\": \"{{foodDescriptionNew}}\",\r\n    \"categories\": [\r\n        { \r\n            \"id\": \"{{categoryId}}\"\r\n        },\r\n        { \r\n            \"id\": \"{{categoryIdNew}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/foods/{{foodId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods",
+								"{{foodId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Food With Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('not_found');\r",
+									"    pm.expect(responsJson.message).to.equals('Gagal memperbarui data makanan, Id makanan tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{foodNameNew}}\",\r\n    \"price\": \"{{foodPriceNew}}\",\r\n    \"description\": \"{{foodDescriptionNew}}\",\r\n    \"categories\": [\r\n        { \r\n            \"id\": \"{{categoryId}}\"\r\n        },\r\n        { \r\n            \"id\": \"{{categoryIdNew}}\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/foods/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Food By Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('not_found');\r",
+									"    pm.expect(responsJson.message).to.equals('Gagal menghapus data makanan, Id makanan tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/foods/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete food by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Berhasil menghapus data makanan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/foods/{{foodId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"foods",
+								"{{foodId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "[No Test} Prerequisite",
+					"item": [
+						{
+							"name": "[No Test] Add Food 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											" const responseJson = pm.response.json();\r",
+											"pm.environment.set('foodId', responseJson.data.foodId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{foodNameOld}}\",\r\n    \"price\": \"{{foodPriceOld}}\",\r\n    \"description\": \"{{foodDescriptionOld}}\",\r\n    \"categories\": [\r\n        { \r\n            \"id\": \"{{categoryId}}\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/foods",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"foods"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "[No Test] Add Food 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											" const responseJson = pm.response.json();\r",
+											"pm.environment.set('foodIdNew', responseJson.data.foodId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{foodNameNew}}\",\r\n    \"price\": \"{{foodPriceNew}}\",\r\n    \"description\": \"{{foodDescriptionNew}}\",\r\n    \"categories\": [\r\n        { \r\n            \"id\": \"{{categoryId}}\"\r\n        },\r\n         { \r\n            \"id\": \"{{categoryIdNew}}\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/foods",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"foods"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Order With Complete Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 201', () => {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('success');\r",
+									"    pm.expect(responseJson.message).to.equals('Pesanan berhasil ditambahkan');\r",
+									"    pm.expect(responseJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data should contain orderId', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('orderId');\r",
+									"    pm.expect(data.orderId).to.not.equals('');\r",
+									"\r",
+									"    pm.environment.set('orderId', data.orderId);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailOld}}\",\r\n    \"orders\": [\r\n        {\"foodId\": \"{{foodId}}\", \"qty\": 2},\r\n        {\"foodId\": \"{{foodIdNew}}\", \"qty\": 3}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Order With Invalid Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responseJson.message).to.equals('Format email yang digunakan salah');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abcd\",\r\n    \"orders\": [\r\n        {\"foodId\": \"{{foodId}}\", \"qty\": 2},\r\n        {\"foodId\": \"{{foodIdNew}}\", \"qty\": 3}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Order With Invalid Food",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should have correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('not_found');\r",
+									"    pm.expect(responseJson.message).to.equals('Id makanan tidak di temukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"naufalazmi@gmail.com\",\r\n    \"orders\": [\r\n        {\"foodId\": 600, \"qty\": 2},\r\n        {\"foodId\": 500, \"qty\": 3}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a array orders and contains one items', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('orders');\r",
+									"    pm.expect(data.orders).to.be.an('array');\r",
+									"    pm.expect(data.orders).to.lengthOf(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('the foods should have contains only id, email, date, status, foods property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { orders } } = responseJson;\r",
+									"\r",
+									"    orders.forEach((order) => {\r",
+									"        pm.expect(Object.keys(order)).to.lengthOf(6);\r",
+									"        pm.expect(order).to.haveOwnProperty('id');\r",
+									"        pm.expect(order).to.haveOwnProperty('email');\r",
+									"        pm.expect(order).to.haveOwnProperty('date');\r",
+									"        pm.expect(order).to.haveOwnProperty('status');\r",
+									"        pm.expect(order).to.haveOwnProperty('foods');\r",
+									"        pm.expect(order).to.haveOwnProperty('total');\r",
+									"\r",
+									"        pm.expect(order.foods).to.be.an('array');\r",
+									"        pm.expect(order.foods).to.lengthOf(2);\r",
+									"        \r",
+									"        order.foods.forEach((food) => {\r",
+									"            pm.expect(Object.keys(food)).to.lengthOf(3);\r",
+									"            pm.expect(food).to.haveOwnProperty('name');\r",
+									"            pm.expect(food).to.haveOwnProperty('price');\r",
+									"            pm.expect(food).to.haveOwnProperty('qty');\r",
+									"        })\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All History Order By Date Now",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a array orders and contains one items', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('history');\r",
+									"    pm.expect(data.history).to.be.an('array');\r",
+									"    pm.expect(data.history).to.lengthOf(1);\r",
+									"});\r",
+									"\r",
+									"pm.test('the foods should have contains only id, email, date, status, foods property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { history } } = responseJson;\r",
+									"\r",
+									"    history.forEach((order) => {\r",
+									"        pm.expect(Object.keys(order)).to.lengthOf(6);\r",
+									"        pm.expect(order).to.haveOwnProperty('id');\r",
+									"        pm.expect(order).to.haveOwnProperty('email');\r",
+									"        pm.expect(order).to.haveOwnProperty('date');\r",
+									"        pm.expect(order).to.haveOwnProperty('status');\r",
+									"        pm.expect(order).to.haveOwnProperty('foods');\r",
+									"        pm.expect(order).to.haveOwnProperty('total');\r",
+									"\r",
+									"        pm.expect(order.foods).to.be.an('array');\r",
+									"        pm.expect(order.foods).to.lengthOf(2);\r",
+									"        \r",
+									"        order.foods.forEach((food) => {\r",
+									"            pm.expect(Object.keys(food)).to.lengthOf(3);\r",
+									"            pm.expect(food).to.haveOwnProperty('name');\r",
+									"            pm.expect(food).to.haveOwnProperty('price');\r",
+									"            pm.expect(food).to.haveOwnProperty('qty');\r",
+									"        })\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/history",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Detail By Valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('data');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.data).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body data object should have a object order', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data } = responseJson;\r",
+									"\r",
+									"    pm.expect(data).to.haveOwnProperty('order');\r",
+									"    pm.expect(data.order).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('the food should have contains only id, email, date, status, foods, total property', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    const { data: { order } } = responseJson;\r",
+									"\r",
+									"        pm.expect(Object.keys(order)).to.lengthOf(6);\r",
+									"        pm.expect(order).to.haveOwnProperty('id');\r",
+									"        pm.expect(order).to.haveOwnProperty('email');\r",
+									"        pm.expect(order).to.haveOwnProperty('date');\r",
+									"        pm.expect(order).to.haveOwnProperty('status');\r",
+									"        pm.expect(order).to.haveOwnProperty('foods');\r",
+									"\r",
+									"        pm.expect(order.foods).to.be.an('array');\r",
+									"        pm.expect(order.foods).to.lengthOf(2);\r",
+									"        \r",
+									"        order.foods.forEach((food) => {\r",
+									"            pm.expect(Object.keys(food)).to.lengthOf(3);\r",
+									"            pm.expect(food).to.haveOwnProperty('name');\r",
+									"            pm.expect(food).to.haveOwnProperty('price');\r",
+									"            pm.expect(food).to.haveOwnProperty('qty');\r",
+									"        })\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/{{orderId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order Detail By Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should an object', () =>  {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should contain correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('not_found');\r",
+									"    pm.expect(responseJson.message).to.equals('Id order tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order With Complete Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Data pesanan telah berhasil diubah');\r",
+									"});\r",
+									"\r",
+									"pm.test('order should be updated', () => {\r",
+									"      const getDetailOrderRequest = {\r",
+									"        url: `${pm.environment.get('localhost')}/orders/${pm.environment.get('orderId')}`,\r",
+									"        method: 'GET'\r",
+									"    };\r",
+									"\r",
+									"    pm.sendRequest(getDetailOrderRequest, (_, response) => {\r",
+									"        const { data: { order }} = response.json()\r",
+									"\r",
+									"        pm.expect(`${order.id}`).to.eq(`${pm.environment.get('orderId')}`)\r",
+									"        pm.expect(`${order.email}`).to.eq(`${pm.environment.get('emailNew')}`)\r",
+									"        pm.expect(order.foods).to.be.an('array')\r",
+									"        pm.expect(order.foods).to.lengthOf(1)\r",
+									"\r",
+									"        order.foods.forEach((food) => {\r",
+									"            pm.expect(Object.keys(food)).to.lengthOf(3);\r",
+									"            pm.expect(food).to.haveOwnProperty('name');\r",
+									"            pm.expect(food).to.haveOwnProperty('price');\r",
+									"            pm.expect(food).to.haveOwnProperty('qty');\r",
+									"        })\r",
+									"    })\r",
+									"\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{emailNew}}\",\r\n    \"orders\": [\r\n        {\"foodId\": \"{{foodId}}\", \"qty\": 10}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/orders/{{orderId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order With Invalid Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response code should be 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should an object', () =>  {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should contain correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('bad_request');\r",
+									"    pm.expect(responseJson.message).to.equals('Format email yang digunakan salah');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abcd\",\r\n    \"orders\": [\r\n        {\"foodId\": \"{{foodId}}\", \"qty\": 10}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/orders/{{orderId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order With Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should an object', () =>  {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should contain correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('not_found');\r",
+									"    pm.expect(responseJson.message).to.equals('Id pesanan tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abcd\",\r\n    \"orders\": [\r\n        {\"foodId\": \"{{foodId}}\", \"qty\": 10}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/orders/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status Paid With Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('not_found');\r",
+									"    pm.expect(responsJson.message).to.equals('Id order tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/xyz/paid",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"xyz",
+								"paid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status Paid With Valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Pesanan berhasil di bayar');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/{{orderId}}/paid",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}",
+								"paid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order With Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('response code should be 404', () => {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should an object', () =>  {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should contain correct property and value', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responseJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responseJson.status).to.equals('not_found');\r",
+									"    pm.expect(responseJson.message).to.equals('Id pesanan tidak ditemukan');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/xyz",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"xyz"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Order With Valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code should be 200', () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('response header Content-Type should be application/json', () => {\r",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body should be an object', () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test('response body object should have correct property and value', () => {\r",
+									"    const responsJson = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('status');\r",
+									"    pm.expect(responsJson).to.haveOwnProperty('message');\r",
+									"\r",
+									"    pm.expect(responsJson.status).to.equals('success');\r",
+									"    pm.expect(responsJson.message).to.equals('Pesanan berhasil dihapus');\r",
+									"});\r",
+									"\r",
+									"const deleteAllCategory = () => {\r",
+									"    pm.sendRequest(`${pm.environment.get('localhost')}/categories`, (error, response) => {\r",
+									"        const responseJson = response.json();\r",
+									"        const { data: { categories } } = responseJson;\r",
+									"        categories.forEach(({ id }) => {\r",
+									"            const deleteRequest = {\r",
+									"                url: `${pm.environment.get('localhost')}/categories/${id}`,\r",
+									"                method: 'DELETE',\r",
+									"            };\r",
+									"            pm.sendRequest(deleteRequest, (error, response) => {\r",
+									"                if(error) {\r",
+									"                    console.log(`Failed to delete category ${id}`)\r",
+									"                    return;\r",
+									"                }\r",
+									"                console.log(`Category ${id} deleted`);\r",
+									"            });\r",
+									"        });\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"const deleteAllFood = () => {\r",
+									"    pm.sendRequest(`${pm.environment.get('localhost')}/foods`, (error, response) => {\r",
+									"        const responseJson = response.json();\r",
+									"        const { data: { foods } } = responseJson;\r",
+									"        foods.forEach(({ id }) => {\r",
+									"            const deleteRequest = {\r",
+									"                url: `${pm.environment.get('localhost')}/foods/${id}`,\r",
+									"                method: 'DELETE',\r",
+									"            };\r",
+									"            pm.sendRequest(deleteRequest, (error, response) => {\r",
+									"                if(error) {\r",
+									"                    console.log(`Failed to delete food ${id}`)\r",
+									"                    return;\r",
+									"                }\r",
+									"                console.log(`Food ${id} deleted`);\r",
+									"            });\r",
+									"        });\r",
+									"    });\r",
+									"};\r",
+									"\r",
+									"deleteAllCategory();\r",
+									"deleteAllFood();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/orders/{{orderId}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
