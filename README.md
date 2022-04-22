@@ -1,8 +1,16 @@
+![Gigih Banner](https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/tree/main/app/assets/images/gigih.png)
+
 # **Restoran Si Gigih**
 
 Restoran Si Gigih is a Backend Project for help Gigih Family management data of they restaurant.
 
-## Documentation
+## Result Code Coverage
+ ![Code Coverage By SimpleCov](https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/blob/main/app/assets/images/Code%20coverage%20for%20Gigih-family-catering.png)
+ 
+## Postman Testing
+  For better experience, you can use this [Collection](https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/blob/main/postman/Generasi%20Gigih.postman_collection.json) and [Environtment](https://github.com/Naufalazmi48/Final-Submission-Generasi-Gigih/blob/main/postman/Generasi%20Gigih.postman_environment.json) which we have provided. At this collection already available testing and some logic, so therefore you can using feature **Run Collection** in Postman
+
+## API Documentation
   - ## Category
       - ### Create Category
           - #### **POST** /categories
