@@ -263,16 +263,19 @@ RSpec.describe 'Orders', type: :request do
   describe 'GET /history' do
     it 'should return history order by date now' do
       # Given
+      order2 = Order.create(customer_id: @customer.id, date: DateTime.now.strftime('27/09/2022'))
       date_now = DateTime.now.strftime('%d/%m/%Y')
       expected = {
         status: :success,
-        data: { history: Order.list_order }
+        data: { history: [@order.detail] }
       }.to_json
 
       # when
       get '/orders/history'
       # then
+      hash_response = JSON.parse(response.body)
       expect(response.body).to eq(expected.to_s)
+      expect(hash_response["data"]["history"][0]["date"]).to eq(date_now)
       expect(response).to have_http_status(200)
     end
   end
