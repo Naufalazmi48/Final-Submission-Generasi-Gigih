@@ -54,5 +54,15 @@ class CategoriesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
     render json: response_with_message(:not_found, 'Kategori tidak ditemukan'), status: :not_found
   end
+
+  def destroy
+    @category = Category.find(params[:id])
+    @category.destroy
+
+    render json: response_with_message(:success, "Kategori berhasil dihapus"), status: :ok
+
+    rescue ActiveRecord::RecordNotFound
+    render json: response_with_message(:not_found, 'Kategori tidak ditemukan'), status: :not_found
+  end
   
 end

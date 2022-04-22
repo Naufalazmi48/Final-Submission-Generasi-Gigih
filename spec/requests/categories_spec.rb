@@ -160,5 +160,35 @@ RSpec.describe 'Categories', type: :request do
       expect(response).to have_http_status(200)
     end
   end
+
+  describe "DELETE /destroy" do
+    it 'Should return exception when invalid category id' do
+      # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :not_found,
+        message: "Kategori tidak ditemukan"
+      }.to_json
+      # When
+      put '/categories/xyz', params: { name: category.name }
+      # then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(404)
+    end
+
+    it 'should success deleted category by valid id' do
+      # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :success,
+        message: "Kategori berhasil dihapus"
+      }.to_json
+      # When
+      delete "/categories/#{category.id}"
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(200)
+    end
+  end
   
 end
