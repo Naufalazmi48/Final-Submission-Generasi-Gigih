@@ -1,25 +1,337 @@
-# Rails on Replit
+# **Restoran Si Gigih**
 
-This is a template to get you started with Rails on Replit. It's ready to go so you can just hit run and start coding!
+Restoran Si Gigih is a Backend Project for help Gigih Family management data of they restaurant.
 
-This template was generated using `rails new` (after you install the `rails` gem from the packager sidebar) so you can always do that if you prefer to set it up from scratch. The only had two make config changes we had to make to run it on Replit:
-
-- bind the app on `0.0.0.0` instead of `localhost` (see `.replit`)
-- allow `*.repl.co` hosts (see `config/environments/development.rb`)
-- allow the app to be iframed on `replit.com` (see `config/application.rb`)
-
-## Running the app
-
-Simple hit run! You can edit the run command from the `.replit` file.
-
-## Running commands
-
-Start every command with `bundle exec` so that it runs in the context of the installed gems environment. The console pane will give you output from the server but you can run arbitrary command from the shell without stopping the server.
-
-## Database
-
-SQLite would work in development but we don't recommend running it in production. Instead look into using the built-in [Replit database](http://docs.replit.com/misc/database). Otherwise you are welcome to connect databases from your favorite provider. 
-
-## Help
-
-If you need help you might be able to find an answer on our [docs](https://docs.replit.com) page. Alternatively you can [ask in the community](https://replit.com/talk/ask). Feel free to report bugs [here](https://replit.com/bugs) and give us feedback [here](https://Replit/feedback).
+## Documentation
+  - ## Category
+      - ### Create Category
+          - #### **POST** /categories
+            - Request Body Example
+               ```javascript
+                {
+                  "name": "Masakan Padang"  //required
+                }
+               ```
+            - Response Example
+              ```javascript
+                {
+                  "status": "created",
+                  "message": "Berhasil menambahkan kategori",
+                  "data": {
+                  "categoryId": 73
+                   }
+                }
+               ```
+       - ### Get All Categories
+           - #### **GET** /categories
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "data": {
+                  "categories": [
+                       {
+                          "id": 72,
+                          "name": "Masakan padang"
+                        },
+                        {
+                           "id": 73,
+                           "name": "Masakan Bali"
+                        }
+                     ]
+                  }
+                }
+               ```
+       - ### Get Detail Category
+           - #### **GET** /categories/{id}
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "data": {
+                  "category": {
+                        "id": 73,
+                        "name": "Masakan Bali"
+                      }
+                  }
+                }
+               ```
+       - ### Update Category
+           - #### **PUT** /categories/{id}
+             - Request Body Example
+               ```javascript
+                {
+                  "name": "Masakan Lombok"  //required
+                }
+               ```
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Berhasil memperbarui kategori",
+                  "data": {
+                  "categoryId": 74
+                   }
+                }
+               ```
+       - ### Delete Category
+           - #### **DELETE** /categories/{id}
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Kategori berhasil dihapus"
+                }
+               ```
+  - ## Food
+       - ### Create Food
+          - #### **POST** /foods
+            - Request Body Example
+               ```javascript
+                {
+                  "name": "Sate Padang",
+                  "price": "10000",
+                  "description": "Makanan kesukaan Rara",
+                  "categories": [
+                     { 
+                        "id": 7
+                     }
+                  ]
+                }
+               ```
+            - Response Example
+              ```javascript
+                {
+                   "status": "success",
+                   "message": "Makanan telah berhasil ditambahkan",
+                   "data": {
+                      "foodId": 47
+                     }
+                 }
+               ```
+       - ### Get All Foods
+           - #### **GET** /foods
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "data": {
+                  "categories": [
+                       {
+                          "id": 72,
+                          "name": "Masakan padang"
+                        },
+                        {
+                           "id": 73,
+                           "name": "Masakan Bali"
+                        }
+                     ]
+                  }
+                }
+               ```
+       - ### Get Detail Food
+           - #### **GET** /foods/{id}
+             - Response Example
+               ```javascript
+                    {
+                      "status": "success",
+                      "data": {
+                        "food": {
+                            "id": 49,
+                            "name": "Sate Padang",
+                            "price": 10000.0,
+                            "description": "Sate Padang adalah makanan kesukaan rara",
+                            "categories": [
+                                  {
+                                      "name": "Masakan Bali"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+               ```
+       - ### Update Food
+           - #### **PUT** /foods/{id}
+             - Request Body Example
+               ```javascript
+                {
+                  "name": "Pelecing",
+                  "price": "5000",
+                  "description": "Makanan khas Lombok",
+                  "categories": [
+                     { 
+                        "id": 8
+                     }
+                  ]
+                }
+               ```
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Berhasil memperbarui kategori",
+                  "data": {
+                  "categoryId": 74
+                   }
+                }
+               ```
+       - ### Delete Food
+           - #### **DELETE** /foods/{id}
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Berhasil menghapus data makanan"
+                }
+               ```
+  - ## Order
+       - ### Create Order
+          - #### **POST** /orders
+            - Request Body Example
+               ```javascript
+                {
+                  "email": "examine@gmail.com",
+                  "orders": [
+                    {"foodId": 1, "qty": 2},
+                    {"foodId": 2, "qty": 3}
+                   ]
+                }
+               ```
+            - Response Example
+              ```javascript
+                {
+                   "status": "success",
+                   "message": "Pesanan berhasil ditambahkan",
+                   "data": {
+                      "orderId": 47
+                     }
+                 }
+               ```
+       - ### Get All Orders
+           - #### **GET** /orders
+             - Response Example
+               ```javascript
+                    {
+                        "status": "success",
+                        "data": {
+                        "orders": [
+                            {
+                                "id": 29,
+                                "email": "examine88@gmail.com",
+                                "date": "22/04/2022",
+                                "status": "new",
+                                "foods": [
+                                  {
+                                    "name": "Sate Padang",
+                                    "price": 10000.0,
+                                    "qty": 2
+                                  },
+                                  {
+                                    "name": "Pelecing",
+                                    "price": 5000.0,
+                                    "qty": 3
+                                  }
+                              ],
+                        "total": 35000.0
+                        }
+                    ]
+                  }
+                }
+               ```
+       - ### Get All History Order by Date Now
+           - #### **GET** /orders
+             - Response Example
+               ```javascript
+                    {
+                        "status": "success",
+                        "data": {
+                        "orders": [
+                            {
+                                "id": 29,
+                                "email": "examine88@gmail.com",
+                                "date": "22/04/2022",
+                                "status": "new",
+                                "foods": [
+                                  {
+                                    "name": "Sate Padang",
+                                    "price": 10000.0,
+                                    "qty": 2
+                                  },
+                                  {
+                                    "name": "Pelecing",
+                                    "price": 5000.0,
+                                    "qty": 3
+                                  }
+                              ],
+                        "total": 35000.0
+                        }
+                    ]
+                  }
+                }
+               ```
+       - ### Get Detail Order
+           - #### **GET** /orders/{id}
+             - Response Example
+               ```javascript
+                    {
+                        "status": "success",
+                        "data": {
+                        "order": 
+                            {
+                                "id": 29,
+                                "email": "examine88@gmail.com",
+                                "date": "22/04/2022",
+                                "status": "new",
+                                "foods": [
+                                  {
+                                    "name": "Sate Padang",
+                                    "price": 10000.0,
+                                    "qty": 2
+                                  },
+                                  {
+                                    "name": "Pelecing",
+                                    "price": 5000.0,
+                                    "qty": 3
+                                  }
+                              ],
+                        "total": 35000.0
+                        }
+                    }
+                  }
+               ```
+       - ### Update Order
+           - #### **PUT** /orders/{id}
+             - Request Body Example
+               ```javascript
+                {
+                  "email": "naufalazmi@gmail.com",
+                  "orders": [
+                    {"foodId": 2, "qty": 3}
+                   ]
+                }
+               ```
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Data pesanan telah berhasil diubah"
+                }
+               ```
+       - ### Update Order Status Paid
+           - #### **PUT** /orders/{id}/paid
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Pesanan berhasil di bayar"
+                }
+               ```
+       - ### Delete Food
+           - #### **DELETE** /orders/{id}
+             - Response Example
+               ```javascript
+                {
+                  "status": "success",
+                  "message": "Pesanan berhasil dihapus"
+                }
+               ```
