@@ -97,5 +97,68 @@ RSpec.describe 'Categories', type: :request do
       expect(response).to have_http_status(400)
     end
   end
+
+  describe 'PUT /update' do
+    it 'Should return exception when invalid category id' do
+      # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :not_found,
+        message: "Kategori tidak ditemukan"
+      }.to_json
+      # When
+      put '/categories/xyz', params: { name: category.name }
+      # then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(404)
+    end
+
+    it 'Should return exception when input duplicate name' do
+      # Given
+      category = FactoryBot.create(:category)
+      category2 = FactoryBot.create(:category)
+      expected = {
+        status: :bad_request,
+        message: "Kategori ini sudah ada"
+      }.to_json
+      # When
+      put "/categories/#{category2.id}", params: { name: category.name }
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(400)
+    end
+
+     it 'Should return exception when not input parameter name' do
+       # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :bad_request,
+        message: "Kolom nama kategori wajib di isi"
+      }.to_json
+      # When
+       put "/categories/#{category.id}"
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(400)
+    end
+
+    it 'Should success update category' do
+      # Given
+      category = FactoryBot.create(:category)
+      expected = {
+        status: :success,
+        message: "Berhasil memperbarui kategori",
+        data: { categoryId: 1 }
+      }.to_json
+      # When
+      put "/categories/#{category.id}", params: { name: "Kategori baru" }
+      # Then
+      hash_response = JSON.parse(response.body)
+      
+      expect(hash_response['data'].has_key?("categoryId")).to be true
+      expect(Category.find_by(name: "Kategori baru").nil?).to eq(false)
+      expect(response).to have_http_status(200)
+    end
+  end
   
 end

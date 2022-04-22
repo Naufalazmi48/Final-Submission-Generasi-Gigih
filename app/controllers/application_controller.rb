@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   def error_response(_exception)
     render json: {
       status: :internal_server_error,
-      message: 'Terjadi kesalahan pada server'
+      message: _exception.message
     }, status: :internal_server_error
   end
 end
