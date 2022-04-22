@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show, :update, :destroy, :create]
   resources :orders, only: [:index, :show, :update, :destroy, :create] do
     post :paid, on: :member
+    get :history, on: :collection
   end
   
 end

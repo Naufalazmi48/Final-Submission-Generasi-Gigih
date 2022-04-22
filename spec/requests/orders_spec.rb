@@ -13,7 +13,7 @@ RSpec.describe 'Orders', type: :request do
     @food1 = FactoryBot.create(:food)
     @food2 = FactoryBot.create(:food)
     @customer = Customer.create(email: 'naufalazmi@gmail.com')
-    @order = Order.create(customer_id: @customer.id, date: '21/04/2022')
+    @order = Order.create(customer_id: @customer.id, date: DateTime.now.strftime('%d/%m/%Y'))
     @order_detail1 = Orderdetail.create(order_id: @order.id, food_id: @food1.id, qty: 2, price: @food1.price)
     @order_detail2 = Orderdetail.create(order_id: @order.id, food_id: @food2.id, qty: 5, price: @food2.price)
   end
@@ -70,7 +70,7 @@ RSpec.describe 'Orders', type: :request do
         message: 'Id order tidak ditemukan'
       }.to_json
       # When
-      get '/orders/x'
+      post "/orders/xyz/paid"
       # Then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(404)
@@ -241,6 +241,23 @@ RSpec.describe 'Orders', type: :request do
         expect(response.body).to eq(expected.to_s)
         expect(response).to have_http_status(200)
         expect(Order.all.size).to eq(0)
+    end
+  end
+
+  describe 'GET /history' do
+    it 'should return history order by date now' do
+      # Given
+      date_now = DateTime.now.strftime('%d/%m/%Y')
+      expected = {
+        status: :success,
+        data: { orders: Order.list_order }
+      }.to_json
+
+      # when
+      get '/orders/history'
+      # then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(200)
     end
   end
 

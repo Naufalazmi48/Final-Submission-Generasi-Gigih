@@ -94,9 +94,12 @@ class OrdersController < ApplicationController
 
     @order.destroy
     render json: response_with_message(:success, 'Pesanan berhasil dihapus'), status: :ok
-
-    rescue ActiveRecord::RecordNotFound
+  rescue ActiveRecord::RecordNotFound
     render json: response_with_message(:not_found, 'Id pesanan tidak ditemukan'), status: :not_found
+  end
+
+  def history
+    render json: response_with_data(:success, { orders: Order.list_order.select { |order| order[:date] == get_current_date } }), status: :ok
   end
 
   private
