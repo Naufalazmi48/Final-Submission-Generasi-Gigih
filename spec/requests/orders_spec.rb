@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'simplecov'
+SimpleCov.start
 
 RSpec.describe 'Orders', type: :request do
   after(:all) do
@@ -70,7 +72,7 @@ RSpec.describe 'Orders', type: :request do
         message: 'Id order tidak ditemukan'
       }.to_json
       # When
-      post "/orders/xyz/paid"
+      put "/orders/xyz/paid"
       # Then
       expect(response.body).to eq(expected.to_s)
       expect(response).to have_http_status(404)
@@ -82,7 +84,7 @@ RSpec.describe 'Orders', type: :request do
         message: 'Pesanan berhasil di bayar'
       }.to_json
       # When
-      post "/orders/#{@order.id}/paid"
+      put "/orders/#{@order.id}/paid"
       # Then
       expect(Order.find(@order.id).status).to eq('paid')
       expect(response.body).to eq(expected.to_s)
@@ -142,7 +144,8 @@ RSpec.describe 'Orders', type: :request do
       food = FactoryBot.create(:food)
       expected = {
         status: :success,
-        message: 'Pesanan berhasil ditambahkan'
+        message: 'Pesanan berhasil ditambahkan',
+        data: { orderId: Order.last.id + 1}
       }.to_json
       # When
       post '/orders', params: { email: 'naufal@gmail.com', orders: [{ foodId: food.id, qty: 2 }] }
@@ -150,7 +153,7 @@ RSpec.describe 'Orders', type: :request do
       expect(response.body).to eq(expected.to_s)
       expect(Order.all.size).to eq(2)
       expect(Orderdetail.all.size).to eq(3)
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:created)
     end
   end
 
@@ -198,6 +201,19 @@ RSpec.describe 'Orders', type: :request do
       put "/orders/#{@order.id}", params: {email: "naufalazmi@gmail.com", orders: [foodId: @food1.id, qty: 2]}
       # Then
       expect(@order.customer_id).not_to eq(@customer.id)
+    end
+
+    it 'Should return exception when input invalid email' do
+      # Given
+      expected = {
+        status: :bad_request,
+        message: 'Format email yang digunakan salah'
+      }.to_json
+      # When
+      put "/orders/#{@order.id}", params: {email: "abc", orders: [foodId: @food1.id, qty: 2]}
+      # Then
+      expect(response.body).to eq(expected.to_s)
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'should return success message when using valid email and orders' do
@@ -250,7 +266,7 @@ RSpec.describe 'Orders', type: :request do
       date_now = DateTime.now.strftime('%d/%m/%Y')
       expected = {
         status: :success,
-        data: { orders: Order.list_order }
+        data: { history: Order.list_order }
       }.to_json
 
       # when

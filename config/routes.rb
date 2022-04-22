@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :foods, only: [:index, :show, :update, :destroy, :create]
   resources :categories, only: [:index, :show, :update, :destroy, :create]
   resources :orders, only: [:index, :show, :update, :destroy, :create] do
-    post :paid, on: :member
+    put :paid, on: :member
     get :history, on: :collection
   end
   

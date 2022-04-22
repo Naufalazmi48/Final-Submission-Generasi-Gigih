@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'simplecov'
+SimpleCov.start
 RSpec.describe Customer, type: :model do
 
   before(:each) do

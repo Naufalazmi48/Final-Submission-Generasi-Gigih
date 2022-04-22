@@ -16,7 +16,7 @@ class FoodsController < ApplicationController
     @food = Food.find(params[:id])
 
     unless validate_params(%i[name price])
-      render json: response_with_message(:bad_request, 'Gagal memperbarui buku, mohon isi nama atau harga buku'), status: :bad_request and return
+      render json: response_with_message(:bad_request, 'Gagal memperbarui data makanan, mohon isi nama atau harga makanan'), status: :bad_request and return
     end
 
     @food.name = params[:name]
@@ -64,7 +64,7 @@ class FoodsController < ApplicationController
       @food.save
     else
       unless @food.errors[:name].empty?
-        render json: response_with_message(:bad_request, 'Data makanan ini sudah tersedia sebelumnya'), status: :bad_request
+        render json: response_with_message(:bad_request, 'Data makanan ini sudah tersedia sebelumnya'), status: :bad_request and return
       end
     end
 

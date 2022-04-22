@@ -17,6 +17,9 @@ class Food < ApplicationRecord
   end
 
   def as_response
-    as_json(include: { categories: { only: :name } })
+    hash_response = as_json(include: { categories: { only: :name } })
+    hash_response.delete("created_at")
+    hash_response.delete("updated_at")
+    hash_response
   end
 end

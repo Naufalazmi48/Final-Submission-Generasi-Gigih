@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'simplecov'
+SimpleCov.start
 
 RSpec.describe Order, type: :model do
    before(:all) do

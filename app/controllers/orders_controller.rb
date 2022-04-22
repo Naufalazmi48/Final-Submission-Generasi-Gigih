@@ -46,7 +46,8 @@ class OrdersController < ApplicationController
 
     generate_order_details(params[:orders], @foods, @order.id)
 
-    render json: response_with_message(:success, 'Pesanan berhasil ditambahkan'), status: :ok
+    render json: response_with_message(:success, 'Pesanan berhasil ditambahkan').merge({data: { orderId: @order.id}}), status: :created
+    
   rescue ActiveRecord::RecordNotFound
     render json: response_with_message(:not_found, 'Id makanan tidak di temukan'), status: :not_found
   end
@@ -99,7 +100,7 @@ class OrdersController < ApplicationController
   end
 
   def history
-    render json: response_with_data(:success, { orders: Order.list_order.select { |order| order[:date] == get_current_date } }), status: :ok
+    render json: response_with_data(:success, { history: Order.list_order.select { |order| order[:date] == get_current_date } }), status: :ok
   end
 
   private

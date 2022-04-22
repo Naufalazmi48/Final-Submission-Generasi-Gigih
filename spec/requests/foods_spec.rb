@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'simplecov'
+SimpleCov.start
 
 RSpec.describe 'Foods', type: :request do
   before(:each) do
@@ -86,7 +88,7 @@ RSpec.describe 'Foods', type: :request do
       food = FactoryBot.create(:food)
       expected = {
         status: :bad_request,
-        message: 'Gagal memperbarui buku, mohon isi nama atau harga buku'
+        message: 'Gagal memperbarui data makanan, mohon isi nama atau harga makanan'
       }.to_json
       # When
       put "/foods/#{food.id}"
