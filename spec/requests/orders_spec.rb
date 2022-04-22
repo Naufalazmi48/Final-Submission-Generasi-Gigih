@@ -214,4 +214,33 @@ RSpec.describe 'Orders', type: :request do
       expect(response).to have_http_status(200)
     end
   end
+
+  describe 'DELETE /destroy' do
+    it 'should return exception when delete with invalid id' do
+       # Given
+        expected = {
+          status: :not_found,
+          message: 'Id pesanan tidak ditemukan'
+        }.to_json
+        # When
+        delete '/orders/x'
+        # Then
+        expect(response.body).to eq(expected.to_s)
+        expect(response).to have_http_status(404)
+    end
+
+    it 'should success delete order when using valid id' do
+      # Given
+        expected = {
+          status: :success,
+          message: 'Pesanan berhasil dihapus'
+        }.to_json
+        # When
+        delete "/orders/#{@order.id}"
+        # Then
+        expect(response.body).to eq(expected.to_s)
+        expect(response).to have_http_status(200)
+        expect(Order.all.size).to eq(0)
+    end
+  end
 end

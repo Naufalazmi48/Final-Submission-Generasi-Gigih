@@ -52,7 +52,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-     unless validate_params(%i[orders])
+    unless validate_params(%i[orders])
       render json: response_with_message(:bad_request, 'Kolom orders wajib di isi'), status: :bad_request and return
     end
 
@@ -77,16 +77,26 @@ class OrdersController < ApplicationController
       if customer.errors[:email].first == 'is invalid'
         render json: response_with_message(:bad_request, 'Format email yang digunakan salah'), status: :bad_request and return
       end
-       @customer = Customer.find_by(email: params[:email])
+
+      @customer = Customer.find_by(email: params[:email])
     end
-      
+
     @order.customer_id = @customer.id
     @order.save
 
-    render json: response_with_message(:success, "Data pesanan telah berhasil diubah"), status: :ok
+    render json: response_with_message(:success, 'Data pesanan telah berhasil diubah'), status: :ok
+  rescue ActiveRecord::RecordNotFound
+    render json: response_with_message(:not_found, 'Id makanan tidak ditemukan'), status: :not_found
+  end
+
+  def destroy
+    @order = Order.find(params[:id])
+
+    @order.destroy
+    render json: response_with_message(:success, 'Pesanan berhasil dihapus'), status: :ok
 
     rescue ActiveRecord::RecordNotFound
-    render json: response_with_message(:not_found, 'Id makanan tidak ditemukan'), status: :not_found
+    render json: response_with_message(:not_found, 'Id pesanan tidak ditemukan'), status: :not_found
   end
 
   private
